@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "https://anokha.amrita.edu/api";
 const LOGIN_URL = `${BASE_URL}/auth/loginOfficial`;
 const TRANSACTIONS_URL = `${BASE_URL}/admin/getAllTransactions`;
 
