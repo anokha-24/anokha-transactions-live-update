@@ -135,7 +135,7 @@ function statusName(status) {
 }
 
 function seatString(released) {
-    return released === 0 ? "Seats Not Released" : "Seats Released";
+    return released === "0" ? "Seats Not Released" : "Seats Released";
 }
 
 function logout() {
