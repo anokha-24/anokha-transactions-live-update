@@ -2,7 +2,7 @@ const BASE_URL = "https://anokha.amrita.edu/api";
 const LOGIN_URL = `${BASE_URL}/auth/loginOfficial`;
 const TRANSACTIONS_URL = `${BASE_URL}/admin/getAllTransactions`;
 
-async function digestMessage(message) {
+async function sha256(message) {
     const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
     const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8); // hash the message
     const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
@@ -32,7 +32,7 @@ async function login() {
 
     const requestBody = {
         managerEmail: managerEmail,
-        managerPassword: await digestMessage(managerPassword),
+        managerPassword: await sha256(managerPassword),
     };
     const response = await fetch(LOGIN_URL, {
         method: "POST",
@@ -100,7 +100,7 @@ async function fetchTransactions(transactionStatus) {
             row.appendChild(transactionStatusData);
 
             let timeData = document.createElement("td");
-            timeData.innerHTML = `cr: ${transaction.createdAt}<br/>ex: ${transaction.expiryTime}<br/>up: ${transaction.lastUpdatedAt}`;
+            timeData.innerHTML = `cr: ${new Date(transaction.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", })}<br/>ex: ${new Date(transaction.expiryTime).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", })}<br/>up: ${new Date(transaction.lastUpdatedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", })}`;
             row.appendChild(timeData);
 
             let actions = document.createElement("td");
